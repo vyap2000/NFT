@@ -1,12 +1,9 @@
-import React, { useState, useEffect, Component, Dimensions } from "react";
+import React, { useState, useEffect } from "react";
 import { Contract, getDefaultProvider, providers, utils } from "ethers";
 import { config } from "../config";
 import abi from "../fixtures/abi.json";
 import axios from "axios";
-import myimage from './image.jpg';
-import myimage1 from './image3.jpg';
-import { isAddress } from "ethers/lib/utils";
-
+// import { isAddress } from "ethers/lib/utils";
 
 const provider = getDefaultProvider("rinkeby", { alchemy: config.alchemyKey });
 const contract = new Contract(
@@ -105,7 +102,7 @@ export const HomePage = () => {
   return (  
    <div className="min-h-screen bg-blue-900">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-        <img src="https://cdn.dribbble.com/users/1320376/screenshots/5995453/apes_logo_1_1x.jpg" width={190} alt="display image"  />
+        <img src="https://cdn.dribbble.com/users/1320376/screenshots/5995453/apes_logo_1_1x.jpg" width={190} alt="logo"/>
 
         <div className="text-red-100 text-6xl pt-0 pb-1">BORED APE NFT</div>
         <div  style={{border: '4px solid navy'}}>
@@ -142,9 +139,9 @@ export const HomePage = () => {
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
           >
             Buy Bored Ape  
-              <img src="https://robohash.org/vincentyap" width={60} alt="display image" />
+              <img src="https://robohash.org/vincentyap" width={60} alt="" />
           </button>
-          <img src="https://robohash.org/OTB.png?set=set1" width={120} alt="display image" />
+          <img src="https://robohash.org/OTB.png?set=set1" width={120} alt="" />
 
         </div>
       </div>
@@ -216,7 +213,7 @@ export const HomePage = () => {
                     </div>
                       {purchaseState.state === "PENDING_CONFIRMAION" &&
                         "Your transaction had been submitted. Waiting for 1 block confirmation...(0/1 confirmation)"}
-                      <img src="https://robohash.org/293.png?set=set5" width={60} hieght={10}alt="display image" pt-10 pb-21 /> 
+                      <img src="https://robohash.org/293.png?set=set5" width={60} hieght={10}alt="" pt-10 pb-21 /> 
                       <div style={{ borderTop: "15px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
                       <div className="text-center text-xs text-gray-500">Gas Genie's Gas-timation is 1-3 gwei. </div>                    
                       <div style={{ borderTop: "9px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
