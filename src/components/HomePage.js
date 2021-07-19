@@ -4,10 +4,12 @@ import { config } from "../config";
 import abi from "../fixtures/abi.json";
 import axios from "axios";
 // import { isAddress } from "ethers/lib/utils";
+ const address = "0xE3E1b455CdA7Aa3244E504694673c19131E7C970";
+// const address = "0xb73D724FCD77c15D82c7C963eb334a9eBF8f6CE3";
 
 const provider = getDefaultProvider("rinkeby", { alchemy: config.alchemyKey });
 const contract = new Contract(
-  "0xCC866A2F77258eb32E4eA4F88c650AE4177Add9a",
+  address,
   abi,
   provider
 );
@@ -31,7 +33,8 @@ export const HomePage = () => {
   const modalVisible =
     purchaseState.state === "PENDING_METAMASK" ||
     purchaseState.state === "PENDING_SIGNER" ||
-    purchaseState.state === "PENDING_CONFIRMAION";
+    purchaseState.state === "PENDING_CONFIRMAION" ||
+    purchaseState.state === "PENDING_TRANSFER";
 
   const loadRobotsData = async () => {
     setMintedNftState({
@@ -80,7 +83,7 @@ export const HomePage = () => {
     
     // Create the contract instance
     const contract = new Contract(
-    "0xCC866A2F77258eb32E4eA4F88c650AE4177Add9a",
+      address,
       abi,
       signer
     );
@@ -100,34 +103,46 @@ export const HomePage = () => {
   };
 
   return (  
-   <div className="min-h-screen bg-blue-900">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-        <img src="https://cdn.dribbble.com/users/1320376/screenshots/5995453/apes_logo_1_1x.jpg" width={190} alt="logo"/>
-
-        <div className="text-red-100 text-6xl pt-0 pb-1">BORED APE NFT</div>
-        <div  style={{border: '4px solid navy'}}>
-    </div>
-        <div className="text-pink-500 text-l pt-2 pb-10">Pre-Launch Promotion Price @ 0.1 ETH
-        </div>
+   <div className="min-h-screen bg-indigo-900">
+      <div className="max-w-8xl mx-auto sm:px-1 lg:px-1 ">
+        <img src="https://cdn.dribbble.com/users/1320376/screenshots/5995453/apes_logo_1_1x.jpg" width={140} alt="logo"/>
+        <div className="text-red-300 text-6xl pt-1 pb-1">BORED APE</div>
+        <div className="text-red-400 text-s pt-6 pb-2"> Smart Contract Address: {address}</div>
+        <div className="text-red-100 text-m pt-2 pb-2"> Promo Price 0.1 ETH</div>
+        <div className="text-xs text-red-700 font-bold"></div>
+        <button onClick={handlePurchase}            
+            type="button"
+            className="items-right px-3 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          > Buy Ape  
+        </button>
+        <div className="mt-1"> </div>
         {mintedNftState.state === "PENDING" && (
-          <div className="text-xl text-white">PRESENTING...</div>          
-        )}
-        <div id="x"></div> 
- 
+          <div className="text-s text-white pt-1 pb-1">PRESENTING...</div>                
+        )} 
         {mintedNftState.state === "SUCCESS" && (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2 ">
             {mintedNftState.data.map(
               ({ id, image, name, description, owner }) => {
                 return (
-                  <div key={id} className="bg-white rounded p-2">
+                  <div key={id} className="bg-white rounded p-2" >
                     <img src={image} className="mx-auto p-1" alt={name} />
-                    <div className="text-xl">{name}</div>
-                    <div className="text-xs">{description}</div>
+                    <div className="text-xl text-green-700 font-bold">{name}</div>
+                    <div className="text-s text-red-700 font-bold">{description}</div>
                     <hr className="my-3" />
-                    <div className="text-center text-sm">Owner Address:</div>
-                    <div className="text-center text-xs">{owner}</div>
-                  </div>
-                );
+                    <div className="text-center text-s text-navy-700 font-bold">Owner:</div>
+                    <div className="text-center text-xs font-extralight truncate">{owner}</div>
+                    <hr className="my-2" />
+                    <div className="text-center text-xs text-blue-700 font-bold"> Transfer To:</div>
+                    <div> <input className="border text-xs text-grey-darkest" type="text" id="sendAddress"></input> </div>
+                    <div className="mt-1">   
+          <button
+            onClick={handlePurchase}            
+            type="button"
+            className="items-center px-2 py-2 border border-transparent text-xs text-base font-medium rounded-md shadow-sm text-white bg-green-800 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >Transfer </button>
+        </div>
+                  </div>                  
+                );            
               }
             )}
           </div>
@@ -136,12 +151,12 @@ export const HomePage = () => {
           <button
             onClick={handlePurchase}            
             type="button"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
           >
-            Buy Bored Ape  
-              <img src="https://robohash.org/vincentyap" width={60} alt="" />
+            Buy Ape  
+              <img src="https://robohash.org/vincentyap" width={50} alt="" />
           </button>
-          <img src="https://robohash.org/OTB.png?set=set1" width={120} alt="" />
+          <img src="https://robohash.org/OTB.png?set=set1" width={100} alt="" />
 
         </div>
       </div>
@@ -212,12 +227,17 @@ export const HomePage = () => {
                       </button>
                     </div>
                       {purchaseState.state === "PENDING_CONFIRMAION" &&
-                        "Your transaction had been submitted. Waiting for 1 block confirmation...(0/1 confirmation)"}
-                      <img src="https://robohash.org/293.png?set=set5" width={60} hieght={10}alt="" pt-10 pb-21 /> 
+                        "Your transaction had been submitted. Wait for 1 block confirmation...(0/1 confirmation)"}
+                     <div style={{ borderTop: "19px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
+                      <button
+                        className="items-center px0 py-0 bg-pink-400 animate-bounce h-5 w-5 mr-3 ..." viewBox="0 0 24 24"> 
+                      Processing
+                      </button>   
+
                       <div style={{ borderTop: "15px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
-                      <div className="text-center text-xs text-gray-500">Gas Genie's Gas-timation is 1-3 gwei. </div>                    
+                      <div className="text-center text-xs text-gray-500">Gas etimation is 1-3 gwei. </div>                    
                       <div style={{ borderTop: "9px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
-                      <div className="text-center text-xs text-pink-500">Click "Back" button</div>                    
+                      <div className="text-center text-s text-pink-500">Click "Back" button</div>                    
                     </p>
                   </div>
                 </div>
