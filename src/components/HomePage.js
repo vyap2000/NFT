@@ -4,8 +4,8 @@ import { config } from "../config";
 import abi from "../fixtures/abi.json";
 import axios from "axios";
 // import { isAddress } from "ethers/lib/utils";
- const address = "0xE3E1b455CdA7Aa3244E504694673c19131E7C970";
-// const address = "0xb73D724FCD77c15D82c7C963eb334a9eBF8f6CE3";
+const address = "0xC1f45C30128e9EC23d79E3d92Ad84E6feD364a7D";
+// const address = "0x44bCF1F99C624B5333be79084a6FBb157267Ca6c";
 
 const provider = getDefaultProvider("rinkeby", { alchemy: config.alchemyKey });
 const contract = new Contract(
@@ -115,19 +115,20 @@ export const HomePage = () => {
             className="items-right px-3 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
           > Buy Ape  
         </button>
-        <div className="mt-1"> </div>
+        <div className="mt-2"> </div>
         {mintedNftState.state === "PENDING" && (
           <div className="text-s text-white pt-1 pb-1">PRESENTING...</div>                
         )} 
         {mintedNftState.state === "SUCCESS" && (
-          <div className="grid grid-cols-4 gap-2 ">
+          <div className="grid grid-cols-4 gap-1 ">
             {mintedNftState.data.map(
               ({ id, image, name, description, owner }) => {
                 return (
                   <div key={id} className="bg-white rounded p-2" >
+                    <hr className="my-2" />
                     <img src={image} className="mx-auto p-1" alt={name} />
                     <div className="text-xl text-green-700 font-bold">{name}</div>
-                    <div className="text-s text-red-700 font-bold">{description}</div>
+                    <div className="text-xs text-red-700 font-bold">{description}</div>
                     <hr className="my-3" />
                     <div className="text-center text-s text-navy-700 font-bold">Owner:</div>
                     <div className="text-center text-xs font-extralight truncate">{owner}</div>
@@ -175,8 +176,7 @@ export const HomePage = () => {
             <span
               className="hidden sm:inline-block sm:align-middle sm:h-screen"
               aria-hidden="true"
-            >
-              
+            >              
             </span>
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
               <div>
@@ -188,8 +188,7 @@ export const HomePage = () => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     aria-hidden="true"
-                  >
-                    <path
+                  ><path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
@@ -227,7 +226,7 @@ export const HomePage = () => {
                       </button>
                     </div>
                       {purchaseState.state === "PENDING_CONFIRMAION" &&
-                        "Your transaction had been submitted. Wait for 1 block confirmation...(0/1 confirmation)"}
+                        "Your transaction had been submitted. Wait for 1 block confirmation (0/1 confirmation)"}
                      <div style={{ borderTop: "19px solid #fff ", marginLeft: 20, marginRight: 20 }}></div>
                       <button
                         className="items-center px0 py-0 bg-pink-400 animate-bounce h-5 w-5 mr-3 ..." viewBox="0 0 24 24"> 
